@@ -1,0 +1,16 @@
+[package]
+name = "mirage"
+version = "0.1.0"
+authors = ["panicbit <panicbit.dev@gmail.com>"]
+
+[dependencies]
+iron = "0.2.6"
+router = "0.1.0"
+mount = "0.0.10"
+staticfile = "0.1.0"
+crowbar = {version = "0.1.0", path = "../crowbar"}
+#git2 = "0.3.4"
+hyper = "0.7.2"
+regex = "0.1.48"
+regex_macros = "0.1.27"
+owning_ref = "0.1.4"
