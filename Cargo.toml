@@ -8,7 +8,7 @@ license = "MIT/Apache-2.0"
 iron = "0.2.6"
 router = "0.1.0"
 mount = "0.0.10"
-crowbar = {version = "0.1.0", path = "../crowbar"}
+crowbar = {version="0.1.0", git="https://github.com/panicbit/crowbar-rs"}
 #git2 = "0.3.4"
 hyper = "0.7.2"
 regex = "0.1.48"

@@ -1,8 +1,8 @@
 [root]
-name = "mirage"
+name = "depot"
 version = "0.1.0"
 dependencies = [
- "crowbar 0.1.0",
+ "crowbar 0.1.0 (git+https://github.com/panicbit/crowbar-rs)",
  "hyper 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "iron 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "mdo 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -65,6 +65,7 @@ dependencies = [
 [[package]]
 name = "crowbar"
 version = "0.1.0"
+source = "git+https://github.com/panicbit/crowbar-rs#719fb127d04ba8ac4a11f7dd5b9ee2d2cd559eeb"
 dependencies = [
  "git2 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "hyper 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
