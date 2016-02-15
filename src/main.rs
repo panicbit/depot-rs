@@ -11,10 +11,9 @@ extern crate regex;
 #[macro_use]
 extern crate mdo;
 
-use std::path::PathBuf;
 use std::process::Command;
 use iron::prelude::*;
-use iron::{Handler, Protocol};
+use iron::Protocol;
 use mount::Mount;
 use crowbar::Index;
 // use git2::Repository;
@@ -22,6 +21,7 @@ use crowbar::Index;
 mod crates;
 mod cgi;
 mod util;
+mod git;
 
 fn main() {
     let index_path = "/tmp/index";
@@ -29,7 +29,7 @@ fn main() {
 
     let mut mount = Mount::new();
     mount
-        .mount("/index", GitServer::new(index_path))
+        .mount("/index", git::Server::new(index_path))
         .mount("/api/v1/crates", crates::crates());
 
     update_index_config(&mut index);
@@ -100,36 +100,4 @@ fn update_index_config(index: &mut Index) {
         .wait()
         .expect("wait");
     
-}
-
-struct GitServer {
-    path: PathBuf
-}
-
-impl GitServer {
-    fn new<P: Into<PathBuf>>(path: P) -> GitServer {
-        let mut path = path.into();
-        path.push(".git");
-
-        GitServer {
-            path: path
-        }
-    }
-}
-
-impl Handler for GitServer {
-    fn handle(&self, r: &mut Request) -> IronResult<Response> {
-        let mut cgi = cgi::Cgi::from_request(r, "git");
-        cgi
-            .arg("http-backend")
-            .env("GIT_PROJECT_ROOT", &self.path)
-            .env("GIT_HTTP_EXPORT_ALL", "1")
-        ;
-
-        let cgi_resp = cgi.dispatch_with_request_body(r).expect("cgi response");
-
-        println!("HEADERS: {:#?}", cgi_resp.header());
-
-        Ok(Response::with(cgi_resp))
-    }
 }
