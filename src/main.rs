@@ -38,7 +38,7 @@ fn main() {
     mount.link_before(LogAccess);
 
 
-    Iron::new(mount).listen_with("0.0.0.0:8080", 100, Protocol::Http, None).expect("iron");
+    Iron::new(mount).listen_with("0.0.0.0:8080", 20, Protocol::Http, None).expect("iron");
 }
 
 struct LogAccess;

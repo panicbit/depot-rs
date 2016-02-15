@@ -39,3 +39,39 @@ impl <R: Read> WriteBody for BodyReader<R> {
         Ok(())
     }
 }
+
+pub struct OptionalTee<R1, R2> {
+    important: R1,
+    optional: Option<R2>
+}
+
+impl <R1: io::Write, R2: io::Write> OptionalTee<R1, R2> {
+    pub fn new(important: R1, optional: R2) -> Self {
+        OptionalTee {
+            important: important,
+            optional: Some(optional)
+        }
+    }
+}
+
+impl <R1: io::Write, R2: io::Write> io::Write for OptionalTee<R1, R2> {
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        let result = self.important.write_all(buf);
+
+        self.optional = self.optional.take().and_then(|mut optional| {
+            optional.write_all(buf).ok().and(Some(optional))
+        });
+
+        result.and(Ok(buf.len()))
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        let result = self.important.flush();
+
+        self.optional = self.optional.take().and_then(|mut optional| {
+            optional.flush().ok().and(Some(optional))
+        });
+
+        result
+    }
+}
