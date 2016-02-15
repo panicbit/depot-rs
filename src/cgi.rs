@@ -41,7 +41,6 @@ pub fn parse<R: BufRead>(mut reader: R) -> io::Result<Response<R>> {
     loop {
         {
             try!(reader.read_line(&mut line));
-            println!("LINE: {}", line);
             let line = line.trim();
             // Detect end of header
             if line == "" {
