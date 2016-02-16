@@ -10,12 +10,14 @@ extern crate hyper;
 extern crate regex;
 #[macro_use]
 extern crate mdo;
+extern crate logger;
 
 use std::process::Command;
 use iron::prelude::*;
 use iron::Protocol;
 use mount::Mount;
 use crowbar::Index;
+use logger::Logger;
 // use git2::Repository;
 
 mod crates;
@@ -24,6 +26,7 @@ mod util;
 mod git;
 
 fn main() {
+    let (logger_before, logger_after) = Logger::new(None);
     let index_path = "/tmp/index";
     let mut index = crowbar::Index::new(index_path).expect("index");
 
@@ -35,18 +38,10 @@ fn main() {
     update_index_config(&mut index);
 
     let mut mount = Chain::new(mount);
-    mount.link_before(LogAccess);
-
+    mount.link_before(logger_before);
+    mount.link_after(logger_after);
 
     Iron::new(mount).listen_with("0.0.0.0:8080", 20, Protocol::Http, None).expect("iron");
-}
-
-struct LogAccess;
-impl iron::BeforeMiddleware for LogAccess {
-    fn before(&self, r: &mut Request) -> IronResult<()> {
-        println!("url: {}", r.url);
-        Ok(())
-    }
 }
 
 fn update_index_config(index: &mut Index) {

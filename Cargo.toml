@@ -14,3 +14,4 @@ hyper = "0.7.2"
 regex = "0.1.48"
 regex_macros = "0.1.27"
 mdo = "0.2.0"
+logger = {version="0.0.3", git = "https://github.com/iron/logger.git"}

@@ -5,6 +5,7 @@ dependencies = [
  "crowbar 0.1.0 (git+https://github.com/panicbit/crowbar-rs)",
  "hyper 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "iron 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "logger 0.0.3 (git+https://github.com/iron/logger.git)",
  "mdo 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "mount 0.0.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 0.1.48 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -236,6 +237,16 @@ version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "libc 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "logger"
+version = "0.0.3"
+source = "git+https://github.com/iron/logger.git#78c20cbda030a03107fec91b5282183d6eee9997"
+dependencies = [
+ "iron 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "term 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time 0.1.34 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -506,6 +517,15 @@ version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "rand 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "term"
+version = "0.2.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "kernel32-sys 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "winapi 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
