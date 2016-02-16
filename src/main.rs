@@ -11,6 +11,9 @@ extern crate regex;
 #[macro_use]
 extern crate mdo;
 extern crate logger;
+#[macro_use]
+extern crate log;
+extern crate flexi_logger;
 
 use std::process::Command;
 use iron::prelude::*;
@@ -26,6 +29,7 @@ mod util;
 mod git;
 
 fn main() {
+    configure_logging();
     let (logger_before, logger_after) = Logger::new(None);
     let index_path = "/tmp/index";
     let mut index = crowbar::Index::new(index_path).expect("index");
@@ -95,4 +99,11 @@ fn update_index_config(index: &mut Index) {
         .wait()
         .expect("wait");
     
+}
+
+fn configure_logging() {
+    use flexi_logger::LogConfig;
+    let config = LogConfig::new();
+    let log_level = "DEBUG";
+    flexi_logger::init(config, Some(log_level.into())).expect("logging");
 }

@@ -19,9 +19,9 @@ impl OwnedChildStdout {
 
 impl Drop for OwnedChildStdout {
     fn drop(&mut self) {
-        println!("Waiting for command to terminate");
+        debug!("Waiting for command to terminate");
         self.child.wait().expect("child wait");
-        println!("Command terminated");
+        debug!("Command terminated");
     }
 }
 

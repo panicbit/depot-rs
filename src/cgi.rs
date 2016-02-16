@@ -129,7 +129,7 @@ impl Cgi {
         };
 
         // Spawn script
-        println!("Spawning: {:#?}", self.cmd);
+        debug!("Spawning: {:#?}", self.cmd);
         let mut child = self.spawn().expect("spawn child");
 
         // Inherit request body
@@ -190,7 +190,7 @@ impl <R: BufRead + Read + Send + 'static> Modifier<::iron::Response> for Respons
         // Inherit Content-Type
         if let Some(content_type) = self.header().get("content-type") {
             let mime: Mime = content_type.parse().expect("content type mime");
-            println!("RESPONSE: ContentType: {}", mime);
+            debug!("RESPONSE: ContentType: {}", mime);
             r.set_mut(mime);
         }
 

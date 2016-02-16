@@ -55,7 +55,7 @@ impl Modifier<Response> for CachedCrateBody {
                 res.set_mut((status::Ok, file));
             },
             Err(_) => {
-                println!("Cache miss");
+                debug!("Cache miss");
 
                 let body = CrateDownloadBody::new(&self.name, &self.version)
                     .expect("download failed");

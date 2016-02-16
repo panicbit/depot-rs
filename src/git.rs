@@ -29,7 +29,7 @@ impl Handler for Server {
 
         let cgi_resp = cgi.dispatch_with_request_body(r).expect("cgi response");
 
-        println!("HEADERS: {:#?}", cgi_resp.header());
+        debug!("HEADERS: {:#?}", cgi_resp.header());
 
         Ok(Response::with(cgi_resp))
     }
