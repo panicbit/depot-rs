@@ -9,12 +9,12 @@ use regex::Regex;
 use iron::Request;
 use iron::mime::Mime;
 use iron::modifier::{Modifier, Set};
-use iron::response::WriteBody;
+use iron::response::{WriteBody,BodyReader};
 use iron::headers::{
     ContentLength,
     ContentType
 };
-use util::{OwnedChildStdout, BodyReader};
+use util::OwnedChildStdout;
 
 static FIELD_RE: Regex = regex!(r"([[:alpha:]-]+): *(.*)");
 

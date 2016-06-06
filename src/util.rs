@@ -31,15 +31,6 @@ impl Read for OwnedChildStdout {
     }
 }
 
-pub struct BodyReader<R>(pub R);
-
-impl <R: Read> WriteBody for BodyReader<R> {
-    fn write_body(&mut self, res: &mut ResponseBody) -> io::Result<()> {
-        try!(io::copy(&mut self.0, res));
-        Ok(())
-    }
-}
-
 pub struct OptionalTee<R1, R2> {
     important: R1,
     optional: Option<R2>
