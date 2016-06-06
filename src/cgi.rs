@@ -211,9 +211,7 @@ impl <R: BufRead + Read + Send + 'static> Modifier<::iron::Response> for Respons
         }
 
         // Inherit request body
-        let body = BodyReader(self.body);
-        let body = Box::new(body) as Box<WriteBody + Send>;
-        r.set_mut(body);
+        r.set_mut(BodyReader(self.body));
     }
 }
 
